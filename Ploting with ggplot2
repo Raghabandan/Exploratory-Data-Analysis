@@ -1,0 +1,71 @@
+==============================================================================
+# Ploting with ggplot2
+==============================================================================
+library(ggplot2)
+
+str(mpg)
+
+# Scatter plot
+
+qplot(displ, hwy, data= mpg)                # x, y , dataset
+
+qplot(displ, hwy, data= mpg, col= drv)      # Colour will be based on drv variable
+
+# Adding a geome
+
+qplot(displ, hwy, data= mpg, geom = c("point", "smooth"))  # Specifies the geometric objects that define the graph type. 
+#The geom option is expressed as a character vector with one or more entries. geom values include "point", "smooth", "boxplot", "line", "histogram", "density", "bar", and "jitter"
+
+# Histogram
+
+qplot(hwy, data= mpg, fill= drv) 
+
+# Facets
+
+qplot(displ, hwy, data= mpg,  facets= .~ drv)   # Facets is like group by , here break x axis
+
+qplot(displ, hwy, data= mpg,  facets= drv~. )   # Here break y axis
+
+qplot(hwy, data= mpg, facets= drv ~. , binwidth= 2)
+
+==============================================================================
+
+# Histogram of hwy
+
+qplot(log(hwy), data = mpg)
+
+# Histogram by Group
+
+qplot(log(hwy), data = mpg, fill = drv)
+
+# Density Smooth
+
+qplot(log(hwy), data = mpg, geom = "density")
+qplot(log(hwy), data = mpg, geom = "density", color = drv)
+
+# Scatterplots: displ vs hwy 
+
+qplot(log(displ), log(hwy), data = mpg)
+qplot(log(displ), log(hwy), data = mpg, shape = drv)
+qplot(log(displ), log(hwy), data = mpg, color = drv)
+
+# Scatterplots: displ vs hwy 
+  
+qplot(log(displ), log(hwy), data = mpg, color = drv, 
+      geom = c("point", "smooth"), method = "lm")     # lm fits linear models. It can be used to carry out regression, single stratum analysis of variance and analysis of covariance
+
+
+# Scatterplots: displ vs hwy 
+  
+qplot(log(displ), log(hwy), data = mpg, geom = c("point", "smooth"), 
+        method = "lm", facets = . ~ drv)
+
+==============================================================================
+  
+# I left secong part 
+  
+# Resources-  http://ggplot2.org/ 
+
+
+
+
