@@ -1,0 +1,95 @@
+=======================================================================
+# Exploratory Graphs
+=======================================================================
+# Dataset 
+
+dspath <- "http://rattle.togaware.com/weather.csv"
+dspath <- system.file("csv", "weather.csv", package="rattle") # Finds full file names of files in packages
+
+weather <- read.csv(dspath)
+
+dim(weather)
+names(weather)
+str(weather)
+  
+ds<- weather
+head(ds)
+dim(ds)
+names(ds)
+head(ds)
+summary(ds)
+=======================================================================
+
+# Exploratory Graphs
+  
+=======================================================================
+# Simple Summaries of Data
+=======================================================================
+      # One dimension
+  
+# Five-number summary
+ 
+summary(ds$Sunshine)
+
+# Boxplot
+
+boxplot(ds$Sunshine, col = "blue")
+
+# Histogram
+
+hist(ds$Sunshine, col = "green")
+
+hist(ds$Sunshine, col = "green")
+rug(ds$Sunshine)
+
+hist(ds$Sunshine, col = "green", breaks= 50)   # Break should not be too large or too small
+rug(ds$Sunshine)
+
+# Overlaying Features
+
+
+boxplot(ds$Sunshine, col = "blue")
+abline(h = 10)
+
+hist(ds$Sunshine, col = "green")
+abline(v = 6, lwd = 2)                         #  line width relative to the default
+abline(v = median(ds$Sunshine), col = "magenta", lwd = 4)
+
+
+# Barplot ( For categorical variables )
+
+barplot(table(ds$RainTomorrow), col = "blue",  main = "RainTomorrow")
+
+=======================================================================
+  
+  # Two dimensions
+  
+# Multiple Boxplots
+  
+boxplot(Sunshine ~ RainTomorrow, data = ds, col = "red")
+
+# Multiple Histograms
+
+par(mfrow = c(2, 1), mar = c(4, 4, 2, 1))        # par can be used to set or query graphical parameters
+hist(subset(ds, RainTomorrow == "Yes")$RainTomorrow, col = "green")
+hist(subset(ds, RainTomorrow == "No")$RainTomorrow, col = "green")
+
+# Scatterplot - Using Color
+
+with(ds, plot(Evaporation, Sunshine, col = RainTomorrow))
+abline(h = 12, lwd = 2, lty = 2)                #  line type
+
+# Multiple Scatterplots
+
+par(mfrow = c(1, 2), mar = c(5, 4, 2, 1))
+with(subset(ds, RainTomorrow == "Yes"), plot(Evaporation, Sunshine, main = "YES"))
+with(subset(ds, RainTomorrow == "No"), plot(Evaporation, Sunshine, main = "NO"))
+
+# http://gallery.r-enthusiasts.com/  # This link provides deeper understanding
+# Six basic principles
+# Principle 1: Show comparisons
+# Principle 2: Show causality, mechanism, explanation
+# Principle 3: Show multivariate data
+# Principle 4: Integrate multiple modes of evidence
+# Principle 5: Describe and document the evidence
+# Principle 6: Content is king
